@@ -41,7 +41,6 @@ export default function HAQ() {
       container: document.querySelector('#form'),
       width: 1068,
       height: 600,
-      fullScreen: true,
       async onSubmit(event) {
         // await fetchResponse(event.formId, event.responseId)
         const res = await fetch('/api/formResponse', {
@@ -63,6 +62,6 @@ export default function HAQ() {
 
 
   return (
-    <div id='form'>HAQ</div>
+    <div id='form'></div>
   )
 }
