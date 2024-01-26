@@ -43,8 +43,19 @@ export default function HAQ() {
       height: 600,
       fullScreen: true,
       async onSubmit(event) {
-        await fetchResponse(event.formId, event.responseId)
-        console.log({event})
+        // await fetchResponse(event.formId, event.responseId)
+        const res = await fetch('/api/formResponse', {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            formId: event.formId,
+            responseId: event.responseId
+          })
+        })
+        const data = await res.json()
+        console.log({event, data})
       },
     })
   }, [])
