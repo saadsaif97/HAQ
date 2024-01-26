@@ -1,11 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type ResponseData = {
-  name?: string;
-  formId?: string;
-  responseId?: string;
   error?: unknown;
-  formResponse?: unknown;
+  answers?: unknown;
 };
 
 export default async function handler(
@@ -22,10 +19,10 @@ export default async function handler(
         .json({ error: "Form id and response id both are required" });
     }
 
-    const formResponse = await fetchResponse(formId, responseId);
+    const answers = await fetchResponse(formId, responseId);
     res
       .status(200)
-      .json({ name: "John Doey", formId, responseId, formResponse });
+      .json({ answers });
   } catch (error) {
     res.status(500).json({ error });
   }
