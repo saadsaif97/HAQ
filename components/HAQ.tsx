@@ -66,7 +66,7 @@ export default function HAQ() {
         const queryString = queryParams.join('&');
         console.log({ event, data, queryString });
 
-        router.push('/response')
+        router.push(`/response?${queryString}`)
       },
     });
   }, []);
