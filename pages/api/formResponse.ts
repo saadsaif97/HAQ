@@ -19,10 +19,10 @@ export default async function handler(
         .json({ error: "Form id and response id both are required" });
     }
 
-    const answers = await fetchResponse(formId, responseId);
+    const variables = await fetchResponse(formId, responseId);
     res
       .status(200)
-      .json({ answers });
+      .json(variables);
   } catch (error) {
     res.status(500).json({ error });
   }
@@ -45,22 +45,8 @@ async function fetchResponse(formId: string, responseId: string) {
     }
 
     const data = await response.json();
-    // Process the response data
-    console.log({ data });
-    const answers = data.items[0].answers;
 
-    let formattedAnswers = answers.map((answer: any) => {
-      let type = answer.type;
-      let ref = answer.field.ref;
-      if (type == "choice") {
-        return { [ref]: answer[type].label };
-      }
-      return { [ref]: answer[type] };
-    });
-
-    console.log({formattedAnswers})
-
-    return formattedAnswers
+    return data?.items[0]?.variables
   } catch (error) {
     console.error("Fetch error:", error);
     throw error; // Rethrow the error if needed
