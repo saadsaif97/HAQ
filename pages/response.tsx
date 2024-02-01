@@ -179,7 +179,7 @@ export default function Response() {
           <h2>{category}</h2>
           {Object.entries(subcategories).map(([organ, organData]) => (
             <div key={organ}>
-              <h3>{organ}</h3>
+              <h4>{organ}</h4>
               <ProiorityGraph
                 number={organData.result}
                 min={organData.min}
