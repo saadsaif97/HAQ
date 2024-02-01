@@ -176,10 +176,10 @@ export default function Response() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       {Object.entries(data).map(([category, subcategories]) => (
         <div key={category}>
-          <h1>{category}</h1>
+          <h2>{category}</h2>
           {Object.entries(subcategories).map(([organ, organData]) => (
             <div key={organ}>
-              <p>{organ}</p>
+              <h3>{organ}</h3>
               <ProiorityGraph
                 number={organData.result}
                 min={organData.min}
