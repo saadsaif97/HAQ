@@ -34,7 +34,7 @@ interface HealthData {
 }
 
 const healthData: HealthData = {
-  gastrointestinal: {
+  Gastrointestinal: {
     gastric_function: {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [5, 6, 7, 8],
@@ -51,14 +51,14 @@ const healthData: HealthData = {
       HighPriority: [16, 24, 32, 40],
     },
   },
-  liver: {
+  Liver: {
     hepatobiliary_function: {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [5, 6, 7, 8],
       HighPriority: [16, 24, 32, 40],
     },
   },
-  endocrine: {
+  Endocrine: {
     thyroid: {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [10, 12, 14, 16],
@@ -70,49 +70,49 @@ const healthData: HealthData = {
       HighPriority: [20, 28, 36, 48],
     },
   },
-  glucoseRegulation: {
+  "Glucose Regulation": {
     dyglycemia: {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [10, 12, 14, 16],
       HighPriority: [20, 28, 36, 48],
     },
   },
-  cardio: {
+  Cardio: {
     cva: {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [5, 6, 7, 8],
       HighPriority: [16, 24, 32, 40],
     },
   },
-  mood: {
+  Mood: {
     depression_anxiety_mood: {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [10, 12, 14, 16],
       HighPriority: [20, 28, 36, 48],
     },
   },
-  immune: {
+  Immune: {
     immune: {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [10, 12, 14, 16],
       HighPriority: [20, 28, 36, 48],
     },
   },
-  neuro_and_cognition: {
+  "Neuro and Cognition": {
     cns_brain: {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [10, 12, 14, 16],
       HighPriority: [20, 28, 36, 48],
     },
   },
-  male: {
+  Male: {
     male_reproductive: {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [5, 6, 7, 8],
       HighPriority: [16, 24, 32, 40],
     },
   },
-  female: {
+  Female: {
     menstrual_balance: {
       LowPriority: [2, 4, 6, 8],
       ModeratePriority: [10, 12, 14, 16],
