@@ -176,7 +176,7 @@ export default function Response() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       {Object.entries(data).map(([category, subcategories]) => (
         <div key={category}>
-          <p>{category}</p>
+          <h1>{category}</h1>
           {Object.entries(subcategories).map(([organ, organData]) => (
             <div key={organ}>
               <p>{organ}</p>
