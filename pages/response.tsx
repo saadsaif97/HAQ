@@ -10,6 +10,7 @@ interface PriorityLevels {
   max?: number;
   priority?: string;
   result?: number;
+  title: string
 }
 
 interface OrganSystem {
@@ -39,16 +40,19 @@ const healthData: HealthData = {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [5, 6, 7, 8],
       HighPriority: [16, 24, 32, 40],
+      title: "Gastric Function"
     },
     smallintestine_pancreas: {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [5, 6, 7, 8],
       HighPriority: [16, 24, 32, 40],
+      title: "Small Intestine/Pancreas"
     },
     colon: {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [5, 6, 7, 8],
       HighPriority: [16, 24, 32, 40],
+      title: "Colon"
     },
   },
   Liver: {
@@ -56,6 +60,7 @@ const healthData: HealthData = {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [5, 6, 7, 8],
       HighPriority: [16, 24, 32, 40],
+      title: "Title"
     },
   },
   Endocrine: {
@@ -63,11 +68,13 @@ const healthData: HealthData = {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [10, 12, 14, 16],
       HighPriority: [20, 28, 36, 48],
+      title: "Thyroid"
     },
     adrenal: {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [10, 12, 14, 16],
       HighPriority: [20, 28, 36, 48],
+      title: "Adrenal"
     },
   },
   "Glucose Regulation": {
@@ -75,6 +82,7 @@ const healthData: HealthData = {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [10, 12, 14, 16],
       HighPriority: [20, 28, 36, 48],
+      title: "Dyglycemia"
     },
   },
   Cardio: {
@@ -82,6 +90,7 @@ const healthData: HealthData = {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [5, 6, 7, 8],
       HighPriority: [16, 24, 32, 40],
+      title: "Cardio"
     },
   },
   Mood: {
@@ -89,6 +98,7 @@ const healthData: HealthData = {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [10, 12, 14, 16],
       HighPriority: [20, 28, 36, 48],
+      title: "Depression/Anxiety mood"
     },
   },
   Immune: {
@@ -96,6 +106,7 @@ const healthData: HealthData = {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [10, 12, 14, 16],
       HighPriority: [20, 28, 36, 48],
+      title: "Immune"
     },
   },
   "Neuro and Cognition": {
@@ -103,6 +114,7 @@ const healthData: HealthData = {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [10, 12, 14, 16],
       HighPriority: [20, 28, 36, 48],
+      title: "CNS Brain"
     },
   },
   Male: {
@@ -110,6 +122,7 @@ const healthData: HealthData = {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [5, 6, 7, 8],
       HighPriority: [16, 24, 32, 40],
+      title: "Male Reproductive"
     },
   },
   Female: {
@@ -117,16 +130,19 @@ const healthData: HealthData = {
       LowPriority: [2, 4, 6, 8],
       ModeratePriority: [10, 12, 14, 16],
       HighPriority: [32, 36, 40, 48],
+      title: "Menstrual Balance"
     },
     reproductive_tissue_infla: {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [10, 12, 14, 16],
       HighPriority: [20, 28, 36, 48],
+      title: "Reproductive Tissue Infla"
     },
     hormone_balance: {
       LowPriority: [2, 4, 6, 8],
       ModeratePriority: [16, 20, 24, 28],
       HighPriority: [34, 42, 54, 72],
+      title: "Hormone Balance"
     },
   },
 };
@@ -205,7 +221,8 @@ export default function Response() {
               borderTop: "1px solid #efefef",
             }}>
               <ProiorityGraph
-                organ={organ}
+                // @ts-ignore
+                organ={organData.title}
                 // @ts-ignore
                 number={organData.result}
                 // @ts-ignore
