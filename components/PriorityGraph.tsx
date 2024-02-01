@@ -4,15 +4,16 @@ interface GradientProps {
   min: number;
   max: number;
   number: number;
+  organ: string;
 }
 
-const ProiorityGraph: React.FC<GradientProps> = ({ min, max, number }) => {
+const ProiorityGraph: React.FC<GradientProps> = ({ min, max, number, organ }) => {
   const gradientStyle: React.CSSProperties = {
     width: `300px`,
     height: `50px`,
     background: "linear-gradient(to right, green, yellow, orange, red)",
     position: "relative",
-    margin: "50px auto"
+    margin: "40px auto"
   };
 
   const percentage = (number / (max - min)) * 100;
@@ -46,6 +47,7 @@ const ProiorityGraph: React.FC<GradientProps> = ({ min, max, number }) => {
 
   return (
     <div>
+      <h4>{organ}</h4>
       <div style={gradientStyle}>
         <div style={headerStyle}>
           <span>Low: ({min})</span>

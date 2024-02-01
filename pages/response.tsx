@@ -173,14 +173,33 @@ export default function Response() {
   }, [responseId]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        flexDirection: "column",
+        alignItems: "center",
+        padding: "1.5rem",
+      }}
+    >
       {Object.entries(data).map(([category, subcategories]) => (
-        <div key={category}>
+        <div key={category} style={{
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: "column",
+          padding: "1.5rem",
+          borderTop: "1px solid #e9e9e9",
+          borderLeft: "1px solid #e9e9e9",
+          borderRight: "1px solid #e9e9e9"
+        }}>
           <h2>{category}</h2>
           {Object.entries(subcategories).map(([organ, organData]) => (
-            <div key={organ}>
-              <h4>{organ}</h4>
+            <div key={organ} style={{
+              padding: "0.5rem",
+              borderTop: "1px solid #efefef",
+            }}>
               <ProiorityGraph
+                organ={organ}
                 number={organData.result}
                 min={organData.min}
                 max={organData.max}
