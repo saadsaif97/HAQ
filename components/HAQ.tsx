@@ -11,7 +11,7 @@ export default function HAQ() {
 
   useEffect(() => {
     const { refresh, unmount } = createWidget("LtDX31MU", {
-      container: document.querySelector("#form"),
+      container: document.querySelector("#form")!,
       width: 1068,
       height: 600,
       async onSubmit(event) {

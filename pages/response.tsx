@@ -17,16 +17,16 @@ interface OrganSystem {
 }
 
 interface HealthData {
-  gastrointestinal: OrganSystem;
-  liver: OrganSystem;
-  endocrine: OrganSystem;
-  glucoseRegulation: OrganSystem;
-  cardio: OrganSystem;
-  mood: OrganSystem;
-  immune: OrganSystem;
-  neuro_and_cognition: OrganSystem;
-  male: OrganSystem;
-  female: {
+  Gastrointestinal: OrganSystem;
+  Liver: OrganSystem;
+  Endocrine: OrganSystem;
+  "Glucose Regulation": OrganSystem;
+  Cardio: OrganSystem;
+  Mood: OrganSystem;
+  Immune: OrganSystem;
+  "Neuro and Cognition": OrganSystem;
+  Male: OrganSystem;
+  Female: {
     menstrual_balance: PriorityLevels;
     reproductive_tissue_infla: PriorityLevels;
     hormone_balance: PriorityLevels;
@@ -168,6 +168,7 @@ export default function Response() {
       let results = await fetchVariables(responseId);
       let newHealthData = addResultsToHealthData(results, healthData);
       console.log(newHealthData);
+      // @ts-ignore
       setData(newHealthData);
     })();
   }, [responseId]);
@@ -200,8 +201,11 @@ export default function Response() {
             }}>
               <ProiorityGraph
                 organ={organ}
+                // @ts-ignore
                 number={organData.result}
+                // @ts-ignore
                 min={organData.min}
+                // @ts-ignore
                 max={organData.max}
               />
             </div>
@@ -220,8 +224,10 @@ function addResultsToHealthData(results: Results, healthData: HealthData) {
 
     // Iterate through the healthData structure to find the corresponding key
     for (const category in healthData) {
+      // @ts-ignore
       for (const subCategory in healthData[category]) {
         if (key.toLowerCase() === subCategory.toLowerCase()) {
+          // @ts-ignore
           const priorityLevels = healthData[category][subCategory];
 
           // Determine the priority based on the number value
@@ -235,12 +241,18 @@ function addResultsToHealthData(results: Results, healthData: HealthData) {
           }
 
           // Add the priority to the result object
+          // @ts-ignore
           healthData[category][subCategory].priority = priority;
+          // @ts-ignore
           let min = healthData[category][subCategory].LowPriority[0];
+          // @ts-ignore
           let max = healthData[category][subCategory].HighPriority[3];
 
+          // @ts-ignore
           healthData[category][subCategory].min = min;
+          // @ts-ignore
           healthData[category][subCategory].max = max;
+          // @ts-ignore
           healthData[category][subCategory].result = number;
 
           // Exit the loop once the key is found
