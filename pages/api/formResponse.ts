@@ -29,11 +29,11 @@ export default async function handler(
 async function fetchResponse(formId: string, responseId: string) {
   const apiUrl = `https://api.typeform.com/forms/${formId}/responses?included_response_ids=${responseId}`;
 
-  let token = process.env.NEXT_PUBLIC_TYPE_FORM_ACESS_TOKEN;
+  let token = process.env.TYPE_FORM_ACESS_TOKEN;
 
   if (!token)
     return {
-      error: `No token found with key: process.env.NEXT_PUBLIC_TYPE_FORM_ACESS_TOKEN: ${token}`,
+      error: `No token found with key: process.env.TYPE_FORM_ACESS_TOKEN: ${token}`,
     };
 
   try {
