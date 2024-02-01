@@ -6,6 +6,10 @@ interface PriorityLevels {
   LowPriority: number[];
   ModeratePriority: number[];
   HighPriority: number[];
+  min?: number,
+  max?: number,
+  priority?: string,
+  result?: number
 }
 
 interface OrganSystem {
@@ -158,12 +162,14 @@ export default function Response() {
 
   const responseId = searchParams?.get("responseId");
   const [results, setResults] = useState<Results>([]);
+  const [data, setData] = useState(healthData)
 
   useEffect(() => {
     (async () => {
       let results = await fetchVariables(responseId);
       results = addPriorityToResults(results, healthData);
       console.log(results);
+      console.log(addResultsToHealthData(results, healthData))
       setResults(results);
     })();
   }, [responseId]);
@@ -225,4 +231,46 @@ function addPriorityToResults(results: Results, healthData: HealthData) {
   });
 
   return results;
+}
+
+// Function to add priority information to the results
+function addResultsToHealthData(results: Results, healthData: HealthData) {
+  if (!results) return [];
+
+  results.forEach((result) => {
+    const { key, number } = result;
+
+    // Iterate through the healthData structure to find the corresponding key
+    for (const category in healthData) {
+      for (const subCategory in healthData[category]) {
+        if (key.toLowerCase() === subCategory.toLowerCase()) {
+          const priorityLevels = healthData[category][subCategory];
+
+          // Determine the priority based on the number value
+          let priority;
+          if (number >= priorityLevels.HighPriority[0]) {
+            priority = "HighPriority";
+          } else if (number >= priorityLevels.ModeratePriority[0]) {
+            priority = "ModeratePriority";
+          } else {
+            priority = "LowPriority";
+          }
+
+          // Add the priority to the result object
+          healthData[category][subCategory].priority = priority;
+          let min = healthData[category][subCategory].LowPriority[0]
+          let max = healthData[category][subCategory].HighPriority[3]
+
+          healthData[category][subCategory].min = min
+          healthData[category][subCategory].max = max
+          healthData[category][subCategory].result = number
+
+          // Exit the loop once the key is found
+          break;
+        }
+      }
+    }
+  });
+
+  return healthData;
 }
