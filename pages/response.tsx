@@ -180,7 +180,6 @@ export default function Response() {
             <p>{category}</p>
             {Object.keys(healthData[category]).map((subcategory) => {
               let subcategoryData = healthData[category][subcategory];
-              console.log({ subcategoryData });
               return (
                 <div>
                   <p>{subcategory}</p>
