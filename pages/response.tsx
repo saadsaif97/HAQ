@@ -134,18 +134,23 @@ const healthData: HealthData = {
 async function fetchVariables(responseId: string | null | undefined) {
   if (!responseId) return;
 
-  const res = await fetch("/api/formResponse", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      formId: "UWy7JY9v",
-      responseId: responseId,
-    }),
-  });
+  try {
+    const res = await fetch("/api/formResponse", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        formId: "UWy7JY9v",
+        responseId: responseId,
+      }),
+    });
 
-  return await res.json();
+    return await res.json();
+  } catch (error) {
+    console.log({error});
+    return (error)
+  }
 }
 
 type Results = {
@@ -217,9 +222,9 @@ export default function Response() {
 }
 
 function addResultsToHealthData(results: Results, healthData: HealthData) {
-  if (!results) return [];
+  if (!results?.length) return [];
 
-  results.forEach((result) => {
+  results?.forEach((result) => {
     const { key, number } = result;
 
     // Iterate through the healthData structure to find the corresponding key

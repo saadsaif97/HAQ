@@ -20,9 +20,7 @@ export default async function handler(
     }
 
     const variables = await fetchResponse(formId, responseId);
-    res
-      .status(200)
-      .json(variables);
+    res.status(200).json(variables);
   } catch (error) {
     res.status(500).json({ error });
   }
@@ -31,11 +29,18 @@ export default async function handler(
 async function fetchResponse(formId: string, responseId: string) {
   const apiUrl = `https://api.typeform.com/forms/${formId}/responses?included_response_ids=${responseId}`;
 
+  let token = process.env.NEXT_PUBLIC_TYPE_FORM_ACESS_TOKEN;
+
+  if (!token)
+    return {
+      error: `No token found with key: process.env.NEXT_PUBLIC_TYPE_FORM_ACESS_TOKEN: ${token}`,
+    };
+
   try {
     const response = await fetch(apiUrl, {
       method: "GET",
       headers: {
-        Authorization: `bearer ${process.env.TYPE_FORM_ACESS_TOKEN}`,
+        Authorization: `bearer ${token}`,
         "Content-Type": "application/json",
       },
     });
@@ -46,7 +51,7 @@ async function fetchResponse(formId: string, responseId: string) {
 
     const data = await response.json();
 
-    return data?.items[0]?.variables
+    return data?.items[0]?.variables;
   } catch (error) {
     console.error("Fetch error:", error);
     throw error; // Rethrow the error if needed
