@@ -10,7 +10,7 @@ export default function HAQ() {
   const router = useRouter()
 
   useEffect(() => {
-    const { refresh, unmount } = createWidget("LtDX31MU", {
+    const { refresh, unmount } = createWidget("UWy7JY9v", {
       container: document.querySelector("#form")!,
       width: 1068,
       height: 600,
