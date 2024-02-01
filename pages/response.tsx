@@ -174,26 +174,21 @@ export default function Response() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {Object.keys(data).map((category) => {
-        return (
-          <div key={category}>
-            <p>{category}</p>
-            {Object.keys(healthData[category]).map((subcategory) => {
-              let subcategoryData = healthData[category][subcategory];
-              return (
-                <div>
-                  <p>{subcategory}</p>
-                  <ProiorityGraph
-                    number={subcategoryData.result}
-                    min={subcategoryData.min}
-                    max={subcategoryData.max}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        );
-      })}
+      {Object.entries(data).map(([category, subcategories]) => (
+        <div key={category}>
+          <p>{category}</p>
+          {Object.entries(subcategories).map(([organ, organData]) => (
+            <div key={organ}>
+              <p>{organ}</p>
+              <ProiorityGraph
+                number={organData.result}
+                min={organData.min}
+                max={organData.max}
+              />
+            </div>
+          ))}
+        </div>
+      ))}
     </main>
   );
 }
