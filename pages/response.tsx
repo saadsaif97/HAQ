@@ -161,24 +161,22 @@ export default function Response() {
   const searchParams = useSearchParams();
 
   const responseId = searchParams?.get("responseId");
-  const [results, setResults] = useState<Results>([]);
   const [data, setData] = useState(healthData);
 
   useEffect(() => {
     (async () => {
       let results = await fetchVariables(responseId);
-      results = addPriorityToResults(results, healthData);
-      console.log(results);
-      console.log(addResultsToHealthData(results, healthData));
-      setResults(results);
+      let newHealthData = addResultsToHealthData(results, healthData);
+      console.log(newHealthData);
+      setData(newHealthData);
     })();
   }, [responseId]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {Object.keys(healthData).map((category) => {
+      {Object.keys(data).map((category) => {
         return (
-          <div>
+          <div key={category}>
             <p>{category}</p>
             {Object.keys(healthData[category]).map((subcategory) => {
               let subcategoryData = healthData[category][subcategory];
