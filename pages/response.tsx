@@ -6,10 +6,10 @@ interface PriorityLevels {
   LowPriority: number[];
   ModeratePriority: number[];
   HighPriority: number[];
-  min?: number,
-  max?: number,
-  priority?: string,
-  result?: number
+  min?: number;
+  max?: number;
+  priority?: string;
+  result?: number;
 }
 
 interface OrganSystem {
@@ -153,8 +153,8 @@ type Results = {
   type: string;
   number: number;
   priority?: "HighPriority" | "LowPriority" | "ModeratePriority";
-  min: number,
-  max: number
+  min: number;
+  max: number;
 }[];
 
 export default function Response() {
@@ -162,78 +162,45 @@ export default function Response() {
 
   const responseId = searchParams?.get("responseId");
   const [results, setResults] = useState<Results>([]);
-  const [data, setData] = useState(healthData)
+  const [data, setData] = useState(healthData);
 
   useEffect(() => {
     (async () => {
       let results = await fetchVariables(responseId);
       results = addPriorityToResults(results, healthData);
       console.log(results);
-      console.log(addResultsToHealthData(results, healthData))
+      console.log(addResultsToHealthData(results, healthData));
       setResults(results);
     })();
   }, [responseId]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {results?.length > 1 &&
-        results.map((variable) => {
-          return (
-            <div key={variable.key}>
-              <p>
-                {variable.key} | {variable.number} | {variable.priority}
-              </p>
-              <ProiorityGraph number={variable.number} min={variable.min} max={variable.max} />
-            </div>
-          );
-        })}
+      {Object.keys(healthData).map((category) => {
+        return (
+          <div>
+            <p>{category}</p>
+            {Object.keys(healthData[category]).map((subcategory) => {
+              let subcategoryData = healthData[category][subcategory];
+              console.log({ subcategoryData });
+              return (
+                <div>
+                  <p>{subcategory}</p>
+                  <ProiorityGraph
+                    number={subcategoryData.result}
+                    min={subcategoryData.min}
+                    max={subcategoryData.max}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        );
+      })}
     </main>
   );
 }
 
-// Function to add priority information to the results
-function addPriorityToResults(results: Results, healthData: HealthData) {
-  if (!results) return [];
-
-  results.forEach((result) => {
-    const { key, number } = result;
-
-    // Iterate through the healthData structure to find the corresponding key
-    for (const category in healthData) {
-      for (const subCategory in healthData[category]) {
-        if (key.toLowerCase() === subCategory.toLowerCase()) {
-          const priorityLevels = healthData[category][subCategory];
-
-          // Determine the priority based on the number value
-          let priority;
-          if (number >= priorityLevels.HighPriority[0]) {
-            priority = "HighPriority";
-          } else if (number >= priorityLevels.ModeratePriority[0]) {
-            priority = "ModeratePriority";
-          } else {
-            priority = "LowPriority";
-          }
-
-          // Add the priority to the result object
-          result.priority = priority;
-          let min = healthData[category][subCategory].LowPriority[0]
-          let max = healthData[category][subCategory].HighPriority[3]
-          console.log(healthData[category][subCategory], {min, max})
-
-          result.min = min
-          result.max = max
-
-          // Exit the loop once the key is found
-          break;
-        }
-      }
-    }
-  });
-
-  return results;
-}
-
-// Function to add priority information to the results
 function addResultsToHealthData(results: Results, healthData: HealthData) {
   if (!results) return [];
 
@@ -258,12 +225,12 @@ function addResultsToHealthData(results: Results, healthData: HealthData) {
 
           // Add the priority to the result object
           healthData[category][subCategory].priority = priority;
-          let min = healthData[category][subCategory].LowPriority[0]
-          let max = healthData[category][subCategory].HighPriority[3]
+          let min = healthData[category][subCategory].LowPriority[0];
+          let max = healthData[category][subCategory].HighPriority[3];
 
-          healthData[category][subCategory].min = min
-          healthData[category][subCategory].max = max
-          healthData[category][subCategory].result = number
+          healthData[category][subCategory].min = min;
+          healthData[category][subCategory].max = max;
+          healthData[category][subCategory].result = number;
 
           // Exit the loop once the key is found
           break;
