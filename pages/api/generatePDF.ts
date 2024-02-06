@@ -39,5 +39,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
+  await createPDF();
   res.json({response: "PDF created"})
 }
