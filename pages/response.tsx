@@ -151,7 +151,7 @@ async function fetchVariables(responseId: string | null | undefined) {
   if (!responseId) return;
 
   try {
-    const res = await fetch("/api/formResponse", {
+    const res = await fetch("http://localhost:3000/api/formResponse", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -178,11 +178,38 @@ type Results = {
   max: number;
 }[];
 
-export default function Response() {
-  const searchParams = useSearchParams();
+interface ResponseProps {
+  initialData: HealthData;
+}
 
+export async function getServerSideProps(context): Promise<{ props: ResponseProps }> {
+  const { query } = context;
+  const responseId = query.responseId;
+
+  try {
+    const results = await fetchVariables(responseId);
+    const newHealthData = addResultsToHealthData(results, healthData);
+
+    return {
+      props: {
+        initialData: newHealthData,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return {
+      props: {
+        initialData: healthData,
+      },
+    };
+  }
+}
+
+export default function Response({ initialData }: ResponseProps) {
+  const [data, setData] = useState(initialData);
+
+  const searchParams = useSearchParams();
   const responseId = searchParams?.get("responseId");
-  const [data, setData] = useState(healthData);
 
   useEffect(() => {
     (async () => {
