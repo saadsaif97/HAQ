@@ -56,6 +56,14 @@ function sendEmail(pdf: any) {
     subject: "TEST SUBJECT",
     text: "This is a test email sent using Nodemailer.",
   };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error("Error sending email: ", error);
+    } else {
+      console.log("Email sent: ", info.response);
+    }
+  });
 }
 
 export default async function handler(
@@ -64,6 +72,7 @@ export default async function handler(
 ) {
   try {
     let PDF = await createPDF();
+    sendEmail(PDF);
     res.json({response: "PDF Created successfully"})
   } catch (error) {
     res.json({error: error})
