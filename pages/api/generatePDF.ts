@@ -45,16 +45,20 @@ function sendEmail(pdf: any) {
     port: 465,
     secure: true,
     auth: {
-      user: "unit203test@gmail.com",
-      pass: "UNIT@203",
+      user: "saadgfx97@gmail.com",
+      pass: "jskccvmtrjgqsrih",
     }
   });
 
   const mailOptions = {
-    from: "unit203test@gmail.com",
-    to: "unit203@mailinator.com",
+    from: "saadgfx97@gmail.com",
+    to: "msaadbinsaif@gmail.com",
     subject: "TEST SUBJECT",
     text: "This is a test email sent using Nodemailer.",
+    attachments: [{
+      filename: "Results.pdf",
+      content: pdf
+  }]
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
