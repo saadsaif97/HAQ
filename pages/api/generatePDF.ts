@@ -3,7 +3,7 @@ import puppeteer from "puppeteer";
 
 type ResponseData = {
   response?: string,
-  error?: string
+  error?: unknown
 };
 
 async function createPDF() {
@@ -39,6 +39,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
-  await createPDF();
-  res.json({response: "PDF created"})
+  try {
+    await createPDF();
+    res.json({response: "PDF Created successfully"})
+  } catch (error) {
+    res.json({error: error})
+  }
 }
