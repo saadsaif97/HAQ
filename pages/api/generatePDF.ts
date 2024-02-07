@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import puppeteer from "puppeteer";
+import nodemailer from "nodemailer";
 
 type ResponseData = {
   response?: string,
@@ -30,9 +31,31 @@ async function createPDF() {
 
     // Close the browser instance
     await browser.close();
+
+    return pdf
   } catch (error) {
     console.log({ error });
   }
+}
+
+function sendEmail(pdf: any) {
+  const transporter = nodemailer.createTransport({
+    service: "Gmail",
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: "unit203test@gmail.com",
+      pass: "UNIT@203",
+    }
+  });
+
+  const mailOptions = {
+    from: "unit203test@gmail.com",
+    to: "unit203@mailinator.com",
+    subject: "TEST SUBJECT",
+    text: "This is a test email sent using Nodemailer.",
+  };
 }
 
 export default async function handler(
@@ -40,7 +63,7 @@ export default async function handler(
   res: NextApiResponse<ResponseData>
 ) {
   try {
-    await createPDF();
+    let PDF = await createPDF();
     res.json({response: "PDF Created successfully"})
   } catch (error) {
     res.json({error: error})
