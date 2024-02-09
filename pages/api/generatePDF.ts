@@ -10,7 +10,7 @@ type ResponseData = {
 async function createPDF(responseId: string) {
   try {
     const URL =
-      `http://localhost:3000/response?responseId=${responseId}`;
+      `https://unit203-haq.vercel.app/response?responseId=${responseId}`;
 
     // Create a browser instance
     const browser = await puppeteer.launch();
