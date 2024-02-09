@@ -52,7 +52,7 @@ async function fetchResponse(formId: string, responseId: string) {
 
     const data = await response.json();
 
-    return data.items[0].answers.find(({type}) => type=="email").email;
+    return data.items[0].answers.find(({type}: any) => type=="email").email;
   } catch (error) {
     console.error("Fetch error:", error);
     throw error; // Rethrow the error if needed

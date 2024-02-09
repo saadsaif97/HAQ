@@ -23,8 +23,8 @@ async function createPDF(responseId: string) {
 
     const scrollDimension = await page.evaluate( () => {
       return {
-        width: document.scrollingElement.scrollWidth,
-        height: document.scrollingElement.scrollHeight
+        width: document?.scrollingElement?.scrollWidth,
+        height: document?.scrollingElement?.scrollHeight
       }
     })
 

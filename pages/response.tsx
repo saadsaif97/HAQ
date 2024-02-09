@@ -183,7 +183,7 @@ interface ResponseProps {
   initialData: HealthData;
 }
 
-export async function getServerSideProps(context): Promise<{ props: ResponseProps }> {
+export async function getServerSideProps(context: any): Promise<{ props: ResponseProps }> {
   const { query } = context;
   const responseId = query.responseId;
 
@@ -193,6 +193,7 @@ export async function getServerSideProps(context): Promise<{ props: ResponseProp
 
     return {
       props: {
+        // @ts-ignore
         initialData: newHealthData,
       },
     };
