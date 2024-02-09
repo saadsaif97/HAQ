@@ -15,10 +15,52 @@ export default function HAQ() {
       width: 1068,
       height: 600,
       async onSubmit(event) {
+        // @TODO: get email and send pdf in attachment
+        const email =  await getEmail(event.responseId);
+        console.log({email})
+        await createPDF(event.responseId, email)
         router.push(`/response?responseId=${event.responseId}`)
       },
     });
   }, []);
 
   return <div id="form"></div>;
+}
+
+async function getEmail(responseId: string | null | undefined) {
+  if (!responseId) return;
+
+  try {
+    const res = await fetch("https://unit203-haq.vercel.app/api/responseEmail", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        formId: "UWy7JY9v",
+        responseId: responseId,
+      }),
+    });
+
+    return await res.json();
+  } catch (error) {
+    console.log({error});
+    return (error)
+  }
+}
+
+async function createPDF(responseId: string, email: string) {
+  const res = await fetch("/api/generatePDF", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      formId: "UWy7JY9v",
+      responseId,
+      email
+    }),
+  });
+  const data = await res.json()
+  console.log({data})
 }

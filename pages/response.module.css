@@ -1,0 +1,6 @@
+@media print {
+  .main {
+    break-inside: avoid;
+    background-color: rebeccapurple;
+  }
+}
