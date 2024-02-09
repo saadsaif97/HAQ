@@ -21,12 +21,19 @@ async function createPDF(responseId: string) {
     //To reflect CSS used for screens instead of print
     await page.emulateMediaType("screen");
 
+    const scrollDimension = await page.evaluate( () => {
+      return {
+        width: document.scrollingElement.scrollWidth,
+        height: document.scrollingElement.scrollHeight
+      }
+    })
+
     // Downlaod the PDF
     const pdf = await page.pdf({
       path: "result.pdf",
-      margin: { top: "100px", right: "50px", bottom: "100px", left: "50px" },
       printBackground: true,
-      format: "A4",
+      width: scrollDimension.width,
+      height: scrollDimension.height
     });
 
     // Close the browser instance
@@ -80,7 +87,7 @@ export default async function handler(
     const responseId = req.body?.responseId;
     const email = req.body?.email;
     let PDF = await createPDF(responseId);
-    sendEmail(PDF, email);
+    // sendEmail(PDF, email);
     res.json({ response: "PDF Created successfully " + responseId + " " + email });
   } catch (error) {
     res.json({ error: error });

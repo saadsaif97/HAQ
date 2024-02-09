@@ -1,6 +1,7 @@
 import ProiorityGraph from "@/components/PriorityGraph";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import styles from "./response.module.css"
 
 interface PriorityLevels {
   LowPriority: number[];
@@ -223,6 +224,7 @@ export default function Response({ initialData }: ResponseProps) {
 
   return (
     <main
+      className={styles.main}
       style={{
         display: "flex",
         justifyContent: "space-between",
