@@ -87,7 +87,7 @@ export default async function handler(
     const responseId = req.body?.responseId;
     const email = req.body?.email;
     let PDF = await createPDF(responseId);
-    // sendEmail(PDF, email);
+    sendEmail(PDF, email);
     res.json({ response: "PDF Created successfully " + responseId + " " + email });
   } catch (error) {
     res.json({ error: error });
