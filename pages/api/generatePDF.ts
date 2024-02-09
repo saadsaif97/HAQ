@@ -7,10 +7,10 @@ type ResponseData = {
   error?: unknown;
 };
 
-async function createPDF() {
+async function createPDF(responseId: string) {
   try {
     const URL =
-      "http://localhost:3000/response?responseId=f0a4hhhhd1gr5dmujf0a4hf6ue63jvy4";
+      `http://localhost:3000/response?responseId=${responseId}`;
 
     // Create a browser instance
     const browser = await puppeteer.launch();
@@ -38,7 +38,7 @@ async function createPDF() {
   }
 }
 
-function sendEmail(pdf: any) {
+function sendEmail(pdf: any, email: string) {
   const transporter = nodemailer.createTransport({
     service: "Gmail",
     host: "smtp.gmail.com",
@@ -52,7 +52,7 @@ function sendEmail(pdf: any) {
 
   const mailOptions = {
     from: "saadgfx97@gmail.com",
-    to: "msaadbinsaif@gmail.com",
+    to: email,
     subject: "TEST SUBJECT",
     text: "This is a test email sent using Nodemailer.",
     attachments: [
@@ -77,9 +77,11 @@ export default async function handler(
   res: NextApiResponse<ResponseData>
 ) {
   try {
-    let PDF = await createPDF();
-    sendEmail(PDF);
-    res.json({ response: "PDF Created successfully" });
+    const responseId = req.body?.responseId;
+    const email = req.body?.email;
+    let PDF = await createPDF(responseId);
+    sendEmail(PDF, email);
+    res.json({ response: "PDF Created successfully " + responseId + " " + email });
   } catch (error) {
     res.json({ error: error });
   }

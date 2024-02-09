@@ -18,6 +18,7 @@ export default function HAQ() {
         // @TODO: get email and send pdf in attachment
         const email =  await getEmail(event.responseId);
         console.log({email})
+        await createPDF(event.responseId, email)
         router.push(`/response?responseId=${event.responseId}`)
       },
     });
@@ -46,4 +47,20 @@ async function getEmail(responseId: string | null | undefined) {
     console.log({error});
     return (error)
   }
+}
+
+async function createPDF(responseId: string, email: string) {
+  const res = await fetch("/api/generatePDF", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      formId: "UWy7JY9v",
+      responseId,
+      email
+    }),
+  });
+  const data = await res.json()
+  console.log({data})
 }

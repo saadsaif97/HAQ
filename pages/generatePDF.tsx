@@ -6,8 +6,18 @@ export default function generatePDF() {
     try {
       const email = await getEmail("f0a4hhhhd1gr5dmujf0a4hf6ue63jvy4");
       console.log({email})
-      const res = await fetch("/api/generatePDF")
-      const data = res.json()
+      const res = await fetch("/api/generatePDF", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          formId: "UWy7JY9v",
+          responseId: "f0a4hhhhd1gr5dmujf0a4hf6ue63jvy4",
+          email: "msaadbinsaif@gmail.com"
+        }),
+      });
+      const data = await res.json()
       console.log({data})
     } catch (error) {
       console.log({ error });
