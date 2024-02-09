@@ -1,5 +1,5 @@
 import ProiorityGraph from "@/components/PriorityGraph";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface PriorityLevels {

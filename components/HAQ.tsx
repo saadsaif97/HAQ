@@ -15,6 +15,7 @@ export default function HAQ() {
       width: 1068,
       height: 600,
       async onSubmit(event) {
+        // @TODO: get email and send pdf in attachment
         router.push(`/response?responseId=${event.responseId}`)
       },
     });
