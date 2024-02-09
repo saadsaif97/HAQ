@@ -3,8 +3,8 @@ import puppeteer from "puppeteer";
 import nodemailer from "nodemailer";
 
 type ResponseData = {
-  response?: string,
-  error?: unknown
+  response?: string;
+  error?: unknown;
 };
 
 async function createPDF() {
@@ -32,7 +32,7 @@ async function createPDF() {
     // Close the browser instance
     await browser.close();
 
-    return pdf
+    return pdf;
   } catch (error) {
     console.log({ error });
   }
@@ -47,7 +47,7 @@ function sendEmail(pdf: any) {
     auth: {
       user: "saadgfx97@gmail.com",
       pass: "jskccvmtrjgqsrih",
-    }
+    },
   });
 
   const mailOptions = {
@@ -55,10 +55,12 @@ function sendEmail(pdf: any) {
     to: "msaadbinsaif@gmail.com",
     subject: "TEST SUBJECT",
     text: "This is a test email sent using Nodemailer.",
-    attachments: [{
-      filename: "Results.pdf",
-      content: pdf
-  }]
+    attachments: [
+      {
+        filename: "Results.pdf",
+        content: pdf,
+      },
+    ],
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
@@ -77,8 +79,8 @@ export default async function handler(
   try {
     let PDF = await createPDF();
     sendEmail(PDF);
-    res.json({response: "PDF Created successfully"})
+    res.json({ response: "PDF Created successfully" });
   } catch (error) {
-    res.json({error: error})
+    res.json({ error: error });
   }
 }
