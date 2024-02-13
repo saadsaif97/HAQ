@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "node node_modules/puppeteer/install.mjs"
+    "postinstall": "node node_modules/puppeteer/install.mjs && npx puppeteer install"
   },
   "dependencies": {
     "@typeform/embed": "^4.4.1",
