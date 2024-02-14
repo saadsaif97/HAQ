@@ -1,4 +1,3 @@
-import puppeteer from "puppeteer";
 import React from "react";
 
 export default function generatePDF() {
@@ -36,7 +35,7 @@ async function getEmail(responseId: string | null | undefined) {
 
   try {
     const res = await fetch(
-      "https://unit203-haq.vercel.app/api/responseEmail",
+      "http://localhost:3000/api/responseEmail",
       {
         method: "POST",
         headers: {

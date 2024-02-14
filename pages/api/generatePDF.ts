@@ -1,21 +1,33 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import puppeteer from "puppeteer";
 import nodemailer from "nodemailer";
+import puppeteer from "puppeteer-core";
+import chromium from "@sparticuz/chromium";
 
 type ResponseData = {
   response?: string;
   error?: unknown;
 };
 
+async function getBrowser() {
+  return puppeteer.launch({
+    args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath(
+      `https://github.com/Sparticuz/chromium/releases/download/v116.0.0/chromium-v116.0.0-pack.tar`
+    ),
+    headless: true,
+    ignoreHTTPSErrors: true,
+  });
+}
+
 async function createPDF(responseId: string) {
   try {
     const URL =
-      `https://unit203-haq.vercel.app/response?responseId=${responseId}`;
+      `http://localhost:3000/response?responseId=${responseId}`;
 
-    // Create a browser instance
-    const browser = await puppeteer.launch();
-    // Create a new page
+    const browser = await getBrowser();
     const page = await browser.newPage();
+
     // Open URL in current page
     await page.goto(URL, { waitUntil: "networkidle2" });
     //To reflect CSS used for screens instead of print
