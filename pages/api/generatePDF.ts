@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import nodemailer from "nodemailer";
 import puppeteer from "puppeteer-core";
-import chromium from "@sparticuz/chromium";
+import chromium from "@sparticuz/chromium-min";
 
 type ResponseData = {
   response?: string;
@@ -33,19 +33,11 @@ async function createPDF(responseId: string) {
     //To reflect CSS used for screens instead of print
     await page.emulateMediaType("screen");
 
-    const scrollDimension = await page.evaluate( () => {
-      return {
-        width: document?.scrollingElement?.scrollWidth,
-        height: document?.scrollingElement?.scrollHeight
-      }
-    })
 
     // Downlaod the PDF
     const pdf = await page.pdf({
       path: "result.pdf",
-      printBackground: true,
-      width: scrollDimension.width,
-      height: scrollDimension.height
+      printBackground: true
     });
 
     // Close the browser instance
