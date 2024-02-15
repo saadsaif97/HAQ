@@ -7,16 +7,29 @@ interface GradientProps {
   organ: string;
 }
 
+
+
 const ProiorityGraph: React.FC<GradientProps> = ({ min, max, number, organ }) => {
+
+  const percentage = (number / (max - min)) * 100;
+
+  function getColor() {
+    if (percentage < 25) {
+      return "green"
+    } else if (25 < percentage ||  percentage < 65) {
+      return "yellow"
+    } else if (65 < percentage) {
+      return "red"
+    }
+  }
+
   const gradientStyle: React.CSSProperties = {
     width: `300px`,
     height: `50px`,
-    background: "linear-gradient(to right, green, yellow, orange, red)",
+    background: getColor(),
     position: "relative",
     margin: "40px auto"
   };
-
-  const percentage = (number / (max - min)) * 100;
 
   const pointerStyle: React.CSSProperties = {
     width: "15px",
@@ -49,11 +62,11 @@ const ProiorityGraph: React.FC<GradientProps> = ({ min, max, number, organ }) =>
     <div>
       <h4>{organ}</h4>
       <div style={gradientStyle}>
-        <div style={headerStyle}>
+        {/* <div style={headerStyle}>
           <span>Low: ({min})</span>
           <span>Medium</span>
           <span>High: ({max})</span>
-        </div>
+        </div> */}
         <div style={pointerStyle}>
           <div style={arrowStyle}></div>
           <span>{number}</span>

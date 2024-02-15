@@ -19,7 +19,7 @@ async function getBrowser() {
 async function createPDF(responseId: string) {
   try {
     const URL =
-      `http://localhost:3000/response?responseId=${responseId}`;
+      `hhttps://haq-unit-203.vercel.app/response?responseId=${responseId}`;
 
     const browser = await getBrowser();
     const page = await browser.newPage();
