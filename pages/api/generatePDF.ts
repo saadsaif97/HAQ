@@ -9,14 +9,12 @@ type ResponseData = {
 };
 
 async function getBrowser() {
+  console.log('launching...')
   return puppeteer.launch({
-    args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
     defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath(
-      `https://github.com/Sparticuz/chromium/releases/download/v116.0.0/chromium-v116.0.0-pack.tar`
-    ),
     headless: true,
-    ignoreHTTPSErrors: true,
+    channel: 'chrome',
+    args: ['--hide-scrollbars', '--disable-web-security'],
   });
 }
 
@@ -33,11 +31,19 @@ async function createPDF(responseId: string) {
     //To reflect CSS used for screens instead of print
     await page.emulateMediaType("screen");
 
+    const scrollDimension = await page.evaluate( () => {
+      return {
+        width: document?.scrollingElement?.scrollWidth,
+        height: document?.scrollingElement?.scrollHeight
+      }
+    })
 
     // Downlaod the PDF
     const pdf = await page.pdf({
       path: "result.pdf",
-      printBackground: true
+      printBackground: true,
+      width: scrollDimension.width,
+      height: scrollDimension.height
     });
 
     // Close the browser instance
