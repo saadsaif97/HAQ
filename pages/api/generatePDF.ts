@@ -15,6 +15,9 @@ async function getBrowser() {
     headless: true,
     channel: 'chrome',
     args: ['--hide-scrollbars', '--disable-web-security'],
+    executablePath: await chromium.executablePath(
+      `https://github.com/Sparticuz/chromium/releases/download/v121.0.0/chromium-v121.0.0-pack.tar`
+    ),
   });
 }
 
