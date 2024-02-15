@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import nodemailer from "nodemailer";
 import puppeteer from "puppeteer-core";
 import chromium from "@sparticuz/chromium-min";
+import { channel } from "process";
 
 type ResponseData = {
   response?: string;
@@ -13,6 +14,7 @@ async function getBrowser() {
   return puppeteer.launch({
     headless: true,
     args: ['--no-sandbox', "--disable-dev-shm-usage"],
+    channel: "chrome"
   });
 }
 
