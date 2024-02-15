@@ -14,7 +14,7 @@ async function getBrowser() {
     defaultViewport: chromium.defaultViewport,
     headless: true,
     channel: 'chrome',
-    args: ['--hide-scrollbars', '--disable-web-security', '--no-sandbox'],
+    args: ['--no-sandbox', "--disable-dev-shm-usage"],
     executablePath: await chromium.executablePath(
       `https://github.com/Sparticuz/chromium/releases/download/v121.0.0/chromium-v121.0.0-pack.tar`
     ),
@@ -24,7 +24,7 @@ async function getBrowser() {
 async function createPDF(responseId: string) {
   try {
     const URL =
-      `http://localhost:3000/response?responseId=${responseId}`;
+      `https://unit203-haq.vercel.app/response?responseId=${responseId}`;
 
     const browser = await getBrowser();
     const page = await browser.newPage();
