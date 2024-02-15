@@ -227,11 +227,11 @@ export default function Response({ initialData }: ResponseProps) {
     <main
       className={styles.main}
       style={{
-        display: "flex",
-        justifyContent: "space-between",
-        flexDirection: "column",
-        alignItems: "center",
+        display: "grid",
+        justifyContent: "center",
+        alignItems: "start",
         padding: "1.5rem",
+        gridTemplateColumns: "repeat(auto-fit, minmax(400px, 1fr))"
       }}
     >
       {Object.entries(data).map(([category, subcategories]) => (

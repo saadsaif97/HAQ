@@ -7,28 +7,29 @@ interface GradientProps {
   organ: string;
 }
 
-
-
-const ProiorityGraph: React.FC<GradientProps> = ({ min, max, number, organ }) => {
-
+const ProiorityGraph: React.FC<GradientProps> = ({
+  min,
+  max,
+  number,
+  organ,
+}) => {
   const percentage = (number / (max - min)) * 100;
 
   function getColor() {
     if (percentage < 25) {
-      return "green"
-    } else if (25 < percentage ||  percentage < 65) {
-      return "yellow"
+      return "green";
+    } else if (25 < percentage || percentage < 65) {
+      return "yellow";
     } else if (65 < percentage) {
-      return "red"
+      return "red";
     }
   }
 
   const gradientStyle: React.CSSProperties = {
-    width: `300px`,
-    height: `50px`,
+    width: `${percentage}%`,
+    height: `20px`,
     background: getColor(),
     position: "relative",
-    margin: "40px auto"
   };
 
   const pointerStyle: React.CSSProperties = {
@@ -39,7 +40,7 @@ const ProiorityGraph: React.FC<GradientProps> = ({ min, max, number, organ }) =>
     transform: "translateX(-50%)",
     bottom: "-10px",
     left: `${percentage}%`,
-    textAlign: "center"
+    textAlign: "center",
   };
 
   const arrowStyle: React.CSSProperties = {
@@ -55,22 +56,39 @@ const ProiorityGraph: React.FC<GradientProps> = ({ min, max, number, organ }) =>
     justifyContent: "space-between",
     position: "absolute",
     top: "-20px",
-    width: "100%"
+    width: "100%",
   };
 
   return (
     <div>
       <h4>{organ}</h4>
-      <div style={gradientStyle}>
-        {/* <div style={headerStyle}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <div
+          style={{
+            width: "200px",
+            border: "1px solid black",
+            margin: "10px 0",
+          }}
+        >
+          <div style={gradientStyle}>
+            {/* <div style={headerStyle}>
           <span>Low: ({min})</span>
           <span>Medium</span>
           <span>High: ({max})</span>
         </div> */}
-        <div style={pointerStyle}>
-          <div style={arrowStyle}></div>
-          <span>{number}</span>
+            {/* <div style={pointerStyle}>
+            <div style={arrowStyle}></div>
+            <span>{number}</span>
+          </div> */}
+          </div>
         </div>
+        <span>{Number(percentage).toFixed(2)}%</span>
       </div>
     </div>
   );
