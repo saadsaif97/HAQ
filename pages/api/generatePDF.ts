@@ -14,7 +14,7 @@ async function getBrowser() {
     defaultViewport: chromium.defaultViewport,
     headless: true,
     channel: 'chrome',
-    args: ['--hide-scrollbars', '--disable-web-security'],
+    args: ['--hide-scrollbars', '--disable-web-security', '--no-sandbox'],
     executablePath: await chromium.executablePath(
       `https://github.com/Sparticuz/chromium/releases/download/v121.0.0/chromium-v121.0.0-pack.tar`
     ),
