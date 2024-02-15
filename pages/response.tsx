@@ -240,9 +240,7 @@ export default function Response({ initialData }: ResponseProps) {
           justifyContent: "space-between",
           flexDirection: "column",
           padding: "1.5rem",
-          borderTop: "1px solid #e9e9e9",
-          borderLeft: "1px solid #e9e9e9",
-          borderRight: "1px solid #e9e9e9"
+          border: "1px solid #e9e9e9"
         }}>
           <h2>{category}</h2>
           {Object.entries(subcategories).map(([organ, organData]) => (

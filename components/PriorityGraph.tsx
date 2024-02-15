@@ -60,35 +60,31 @@ const ProiorityGraph: React.FC<GradientProps> = ({
   };
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
       <h4>{organ}</h4>
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          gap: "10px"
         }}
       >
         <div
           style={{
-            width: "200px",
+            width: "150px",
             border: "1px solid black",
-            margin: "10px 0",
           }}
         >
-          <div style={gradientStyle}>
-            {/* <div style={headerStyle}>
-          <span>Low: ({min})</span>
-          <span>Medium</span>
-          <span>High: ({max})</span>
-        </div> */}
-            {/* <div style={pointerStyle}>
-            <div style={arrowStyle}></div>
-            <span>{number}</span>
-          </div> */}
-          </div>
+          <div style={gradientStyle}></div>
         </div>
-        <span>{Number(percentage).toFixed(2)}%</span>
+        <span style={{width: "30px"}}>{Number(percentage).toFixed(2)}%</span>
       </div>
     </div>
   );
