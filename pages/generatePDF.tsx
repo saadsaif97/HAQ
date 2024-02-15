@@ -35,7 +35,7 @@ async function getEmail(responseId: string | null | undefined) {
 
   try {
     const res = await fetch(
-      "hhttps://haq-unit-203.vercel.app/api/responseEmail",
+      "https://haq-unit-203.vercel.app/api/responseEmail",
       {
         method: "POST",
         headers: {
