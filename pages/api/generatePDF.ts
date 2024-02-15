@@ -11,9 +11,7 @@ type ResponseData = {
 async function getBrowser() {
   console.log('launching...')
   return puppeteer.launch({
-    defaultViewport: chromium.defaultViewport,
     headless: true,
-    channel: 'chrome',
     args: ['--no-sandbox', "--disable-dev-shm-usage"],
   });
 }
