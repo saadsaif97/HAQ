@@ -1,7 +1,7 @@
 import ProiorityGraph from "@/components/PriorityGraph";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import styles from "./response.module.css"
+import styles from "./response.module.css";
 
 interface PriorityLevels {
   LowPriority: number[];
@@ -11,7 +11,7 @@ interface PriorityLevels {
   max?: number;
   priority?: string;
   result?: number;
-  title: string
+  title: string;
 }
 
 interface OrganSystem {
@@ -36,46 +36,12 @@ interface HealthData {
 }
 
 const healthData: HealthData = {
-  Gastrointestinal: {
-    gastric_function: {
-      LowPriority: [1, 2, 3, 4],
-      ModeratePriority: [5, 6, 7, 8],
-      HighPriority: [16, 24, 32, 40],
-      title: "Gastric Function"
-    },
-    smallintestine_pancreas: {
-      LowPriority: [1, 2, 3, 4],
-      ModeratePriority: [5, 6, 7, 8],
-      HighPriority: [16, 24, 32, 40],
-      title: "Small Intestine/Pancreas"
-    },
-    colon: {
-      LowPriority: [1, 2, 3, 4],
-      ModeratePriority: [5, 6, 7, 8],
-      HighPriority: [16, 24, 32, 40],
-      title: "Colon"
-    },
-  },
   Liver: {
     hepatobiliary_function: {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [5, 6, 7, 8],
       HighPriority: [16, 24, 32, 40],
-      title: "Title"
-    },
-  },
-  Endocrine: {
-    thyroid: {
-      LowPriority: [1, 2, 3, 4],
-      ModeratePriority: [10, 12, 14, 16],
-      HighPriority: [20, 28, 36, 48],
-      title: "Thyroid"
-    },
-    adrenal: {
-      LowPriority: [1, 2, 3, 4],
-      ModeratePriority: [10, 12, 14, 16],
-      HighPriority: [20, 28, 36, 48],
-      title: "Adrenal"
+      title: "Title",
     },
   },
   "Glucose Regulation": {
@@ -83,15 +49,7 @@ const healthData: HealthData = {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [10, 12, 14, 16],
       HighPriority: [20, 28, 36, 48],
-      title: "Dyglycemia"
-    },
-  },
-  Cardio: {
-    cva: {
-      LowPriority: [1, 2, 3, 4],
-      ModeratePriority: [5, 6, 7, 8],
-      HighPriority: [16, 24, 32, 40],
-      title: "Cardio"
+      title: "Dyglycemia",
     },
   },
   Mood: {
@@ -99,7 +57,7 @@ const healthData: HealthData = {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [10, 12, 14, 16],
       HighPriority: [20, 28, 36, 48],
-      title: "Depression/Anxiety mood"
+      title: "Depression/Anxiety mood",
     },
   },
   Immune: {
@@ -107,7 +65,7 @@ const healthData: HealthData = {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [10, 12, 14, 16],
       HighPriority: [20, 28, 36, 48],
-      title: "Immune"
+      title: "Immune",
     },
   },
   "Neuro and Cognition": {
@@ -115,7 +73,7 @@ const healthData: HealthData = {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [10, 12, 14, 16],
       HighPriority: [20, 28, 36, 48],
-      title: "CNS Brain"
+      title: "CNS Brain",
     },
   },
   Male: {
@@ -123,7 +81,7 @@ const healthData: HealthData = {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [5, 6, 7, 8],
       HighPriority: [16, 24, 32, 40],
-      title: "Male Reproductive"
+      title: "Male Reproductive",
     },
   },
   Female: {
@@ -131,19 +89,61 @@ const healthData: HealthData = {
       LowPriority: [2, 4, 6, 8],
       ModeratePriority: [10, 12, 14, 16],
       HighPriority: [32, 36, 40, 48],
-      title: "Menstrual Balance"
+      title: "Menstrual Balance",
     },
     reproductive_tissue_infla: {
       LowPriority: [1, 2, 3, 4],
       ModeratePriority: [10, 12, 14, 16],
       HighPriority: [20, 28, 36, 48],
-      title: "Reproductive Tissue Infla"
+      title: "Reproductive Tissue Infla",
     },
     hormone_balance: {
       LowPriority: [2, 4, 6, 8],
       ModeratePriority: [16, 20, 24, 28],
       HighPriority: [34, 42, 54, 72],
-      title: "Hormone Balance"
+      title: "Hormone Balance",
+    },
+  },
+  Gastrointestinal: {
+    gastric_function: {
+      LowPriority: [1, 2, 3, 4],
+      ModeratePriority: [5, 6, 7, 8],
+      HighPriority: [16, 24, 32, 40],
+      title: "Gastric Function",
+    },
+    smallintestine_pancreas: {
+      LowPriority: [1, 2, 3, 4],
+      ModeratePriority: [5, 6, 7, 8],
+      HighPriority: [16, 24, 32, 40],
+      title: "Small Intestine/Pancreas",
+    },
+    colon: {
+      LowPriority: [1, 2, 3, 4],
+      ModeratePriority: [5, 6, 7, 8],
+      HighPriority: [16, 24, 32, 40],
+      title: "Colon",
+    },
+  },
+  Endocrine: {
+    thyroid: {
+      LowPriority: [1, 2, 3, 4],
+      ModeratePriority: [10, 12, 14, 16],
+      HighPriority: [20, 28, 36, 48],
+      title: "Thyroid",
+    },
+    adrenal: {
+      LowPriority: [1, 2, 3, 4],
+      ModeratePriority: [10, 12, 14, 16],
+      HighPriority: [20, 28, 36, 48],
+      title: "Adrenal",
+    },
+  },
+  Cardio: {
+    cva: {
+      LowPriority: [1, 2, 3, 4],
+      ModeratePriority: [5, 6, 7, 8],
+      HighPriority: [16, 24, 32, 40],
+      title: "Cardio",
     },
   },
 };
@@ -165,8 +165,8 @@ async function fetchVariables(responseId: string | null | undefined) {
 
     return await res.json();
   } catch (error) {
-    console.log({error});
-    return (error)
+    console.log({ error });
+    return error;
   }
 }
 
@@ -183,7 +183,9 @@ interface ResponseProps {
   initialData: HealthData;
 }
 
-export async function getServerSideProps(context: any): Promise<{ props: ResponseProps }> {
+export async function getServerSideProps(
+  context: any
+): Promise<{ props: ResponseProps }> {
   const { query } = context;
   const responseId = query.responseId;
 
@@ -227,27 +229,33 @@ export default function Response({ initialData }: ResponseProps) {
     <main
       className={styles.main}
       style={{
-        display: "grid",
-        justifyContent: "center",
-        alignItems: "start",
-        padding: "1.5rem",
-        gridTemplateColumns: "repeat(auto-fit, minmax(400px, 1fr))"
+        display: "flex",
+        flexWrap: "wrap",
+        maxWidth: "1350px",
+        margin: "0 auto",
       }}
     >
       {Object.entries(data).map(([category, subcategories]) => (
-        <div key={category} style={{
-          display: "flex",
-          justifyContent: "space-between",
-          flexDirection: "column",
-          padding: "1.5rem",
-          border: "1px solid #e9e9e9"
-        }}>
+        <div
+          key={category}
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            flexDirection: "column",
+            padding: "1.5rem",
+            border: "1px solid #e9e9e9",
+            width: "400px",
+          }}
+        >
           <h2>{category}</h2>
           {Object.entries(subcategories).map(([organ, organData]) => (
-            <div key={organ} style={{
-              padding: "0.5rem",
-              borderTop: "1px solid #efefef",
-            }}>
+            <div
+              key={organ}
+              style={{
+                padding: "0.5rem",
+                borderTop: "1px solid #efefef",
+              }}
+            >
               <ProiorityGraph
                 // @ts-ignore
                 organ={organData.title}
