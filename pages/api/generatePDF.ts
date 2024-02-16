@@ -10,18 +10,28 @@ type ResponseData = {
 };
 
 async function getBrowser() {
-  console.log('launching...')
+  console.log("launching...");
   return puppeteer.launch({
     headless: true,
-    args: ['--no-sandbox', "--disable-dev-shm-usage"],
-    channel: "chrome"
+    args: [
+      ...chromium.args,
+      "--hide-scrollbars",
+      "--disable-web-security",
+      "--no-sandbox",
+      "--disable-dev-shm-usage",
+    ],
+    channel: "chrome",
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath(
+      `https://github.com/Sparticuz/chromium/releases/download/v116.0.0/chromium-v116.0.0-pack.tar`
+    ),
+    ignoreHTTPSErrors: true,
   });
 }
 
 async function createPDF(responseId: string) {
   try {
-    const URL =
-      `https://haq-unit-203.vercel.app/response?responseId=${responseId}`;
+    const URL = `https://haq-unit-203.vercel.app/response?responseId=${responseId}`;
 
     const browser = await getBrowser();
     const page = await browser.newPage();
@@ -31,19 +41,19 @@ async function createPDF(responseId: string) {
     //To reflect CSS used for screens instead of print
     await page.emulateMediaType("screen");
 
-    const scrollDimension = await page.evaluate( () => {
+    const scrollDimension = await page.evaluate(() => {
       return {
         width: document?.scrollingElement?.scrollWidth,
-        height: document?.scrollingElement?.scrollHeight
-      }
-    })
+        height: document?.scrollingElement?.scrollHeight,
+      };
+    });
 
     // Downlaod the PDF
     const pdf = await page.pdf({
       path: "result.pdf",
       printBackground: true,
       width: scrollDimension.width,
-      height: scrollDimension.height
+      height: scrollDimension.height,
     });
 
     // Close the browser instance
@@ -98,7 +108,9 @@ export default async function handler(
     const email = req.body?.email;
     let PDF = await createPDF(responseId);
     sendEmail(PDF, email);
-    res.json({ response: "PDF Created successfully " + responseId + " " + email });
+    res.json({
+      response: "PDF Created successfully " + responseId + " " + email,
+    });
   } catch (error) {
     res.json({ error: error });
   }
