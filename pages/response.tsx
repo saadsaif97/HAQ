@@ -152,7 +152,7 @@ async function fetchVariables(responseId: string | null | undefined) {
   if (!responseId) return;
 
   try {
-    const res = await fetch("https://haq-unit-203.vercel.app/api/formResponse", {
+    const res = await fetch("http://localhost:3000/api/formResponse", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
