@@ -17,11 +17,11 @@ const ProiorityGraph: React.FC<GradientProps> = ({
 
   function getColor() {
     if (percentage < 25) {
-      return "green";
+      return "#00ba00";
     } else if (25 < percentage || percentage < 65) {
-      return "yellow";
+      return "#eeaa00";
     } else if (65 < percentage) {
-      return "red";
+      return "#da2a35";
     }
   }
 
