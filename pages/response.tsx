@@ -233,6 +233,9 @@ export default function Response({ initialData }: ResponseProps) {
         flexWrap: "wrap",
         maxWidth: "1350px",
         margin: "0 auto",
+        gap: "20px",
+        fontFamily: "sans-serif",
+        justifyContent: "space-between"
       }}
     >
       {Object.entries(data).map(([category, subcategories]) => (
@@ -243,16 +246,18 @@ export default function Response({ initialData }: ResponseProps) {
             justifyContent: "space-between",
             flexDirection: "column",
             padding: "1.5rem",
-            border: "1px solid #e9e9e9",
-            width: "400px",
+            background: "#fcfcfc",
+            borderRadius: "5px",
+            width: "350px",
+            boxShadow: "0 0 8px rgba(0,0,0,0.07)"
           }}
         >
-          <h2>{category}</h2>
+          <h4 style={{margin: "10px 0"}}>{category}</h4>
           {Object.entries(subcategories).map(([organ, organData]) => (
             <div
               key={organ}
               style={{
-                padding: "0.5rem",
+                padding: "10px",
                 borderTop: "1px solid #efefef",
               }}
             >

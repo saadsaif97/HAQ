@@ -68,7 +68,7 @@ const ProiorityGraph: React.FC<GradientProps> = ({
         alignItems: "center",
       }}
     >
-      <h4>{organ}</h4>
+      <small>{organ}</small>
       <div
         style={{
           display: "flex",
@@ -79,7 +79,7 @@ const ProiorityGraph: React.FC<GradientProps> = ({
       >
         <div
           style={{
-            width: "150px",
+            width: "120px",
             background: "#e9e9e9",
             borderRadius: "5px"
           }}
