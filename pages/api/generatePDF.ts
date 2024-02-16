@@ -1,57 +1,39 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import puppeteer from "puppeteer";
 import nodemailer from "nodemailer";
-import puppeteer from "puppeteer-core";
-import chromium from "@sparticuz/chromium-min";
-import { channel } from "process";
 
 type ResponseData = {
   response?: string;
   error?: unknown;
 };
 
-async function getBrowser() {
-  console.log("launching...");
-  return puppeteer.launch({
-    headless: true,
-    args: [
-      ...chromium.args,
-      "--hide-scrollbars",
-      "--disable-web-security",
-      "--no-sandbox",
-      "--disable-dev-shm-usage",
-    ],
-    channel: "chrome",
-    defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath(),
-    ignoreHTTPSErrors: true,
-  });
-}
-
 async function createPDF(responseId: string) {
   try {
-    const URL = `https://haq-unit-203.vercel.app/response?responseId=${responseId}`;
+    const URL =
+      `https://haq-unit-203.vercel.app/response?responseId=${responseId}`;
 
-    const browser = await getBrowser();
+    // Create a browser instance
+    const browser = await puppeteer.launch();
+    // Create a new page
     const page = await browser.newPage();
-
     // Open URL in current page
     await page.goto(URL, { waitUntil: "networkidle2" });
     //To reflect CSS used for screens instead of print
     await page.emulateMediaType("screen");
 
-    const scrollDimension = await page.evaluate(() => {
+    const scrollDimension = await page.evaluate( () => {
       return {
         width: document?.scrollingElement?.scrollWidth,
-        height: document?.scrollingElement?.scrollHeight,
-      };
-    });
+        height: document?.scrollingElement?.scrollHeight
+      }
+    })
 
     // Downlaod the PDF
     const pdf = await page.pdf({
       path: "result.pdf",
       printBackground: true,
       width: scrollDimension.width,
-      height: scrollDimension.height,
+      height: scrollDimension.height
     });
 
     // Close the browser instance
@@ -106,9 +88,7 @@ export default async function handler(
     const email = req.body?.email;
     let PDF = await createPDF(responseId);
     sendEmail(PDF, email);
-    res.json({
-      response: "PDF Created successfully " + responseId + " " + email,
-    });
+    res.json({ response: "PDF Created successfully " + responseId + " " + email });
   } catch (error) {
     res.json({ error: error });
   }
