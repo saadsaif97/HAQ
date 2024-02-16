@@ -30,6 +30,7 @@ const ProiorityGraph: React.FC<GradientProps> = ({
     height: `20px`,
     background: getColor(),
     position: "relative",
+    borderRadius: "5px"
   };
 
   const pointerStyle: React.CSSProperties = {
@@ -79,7 +80,8 @@ const ProiorityGraph: React.FC<GradientProps> = ({
         <div
           style={{
             width: "150px",
-            border: "1px solid black",
+            background: "#e9e9e9",
+            borderRadius: "5px"
           }}
         >
           <div style={gradientStyle}></div>
